@@ -7,13 +7,8 @@ jQuery(($)->
         $.get('/command', {cmd: cmd}).done (resp)->
             html = output.html()
             output.html( html + "\n"+ resp)
-            content.scroll()
-
+            content.scrollTop(output.height())
 )
-
-
-
-
 
 class ReadLine
     ENTER = 13
