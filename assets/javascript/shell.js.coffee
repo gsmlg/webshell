@@ -13,7 +13,7 @@ jQuery(($)->
 class ReadLine
     ENTER = 13
     UP = 38
-    DOWN = 48
+    DOWN = 40
     constructor: (input)->
         @$el = jQuery(input)
         @history = [];
