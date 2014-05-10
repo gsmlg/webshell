@@ -4,6 +4,7 @@ jQuery(($)->
     output = shell.find('.output')
     readline = new ReadLine('#input')
     readline.sendCommand = (cmd)->
+        output.html( output.html() + "\n$ "+ cmd )
         $.get('/command', {cmd: cmd}).done (resp)->
             html = output.html()
             output.html( html + "\n"+ resp)
