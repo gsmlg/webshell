@@ -39,6 +39,10 @@ class App < Sinatra::Base
         BetterErrors.application_root = root
     end
 
+    configure :production do
+
+    end
+
     helpers do
         include Sprockets::Helpers
     end

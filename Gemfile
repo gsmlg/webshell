@@ -13,12 +13,13 @@ group :app do
     gem 'browser'
     gem 'coffee-script'
     gem 'sass'
+    gem 'uglifier'
 end
 
 group :production do
-  gem 'uglifier'
+
 end
 
 group :development do
-  gem 'better_errors'
+    gem 'better_errors'
 end

@@ -11,9 +11,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <%= stylesheet_tag 'application', :expand => true %>
         <script src="assets/modernizr.js"></script>
+        <% if App.development? %>
+        <%= stylesheet_tag 'application', :expand => App.development? %>
+    <% else %>
+    <link rel="StyleSheet" type="text/css" href="/assets/css/application.css" />
+    <% end %>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -22,7 +25,10 @@
 
         <!-- Add your site or application content here -->
         <%= yield %>
-
-        <%= javascript_tag 'application', :expand => true %>
+        <% if App.development? %>
+        <%= javascript_tag 'application', :expand => App.development? %>
+        <% else %>
+        <script type="text/javascript" src="/assets/js/application.js"></script>
+        <% end %>
     </body>
 </html>
