@@ -4,6 +4,7 @@ Bundler.require :app
 class App < Sinatra::Base
     Bundler.require environment
     require 'sinatra/cookies'
+    require 'pty'
 
     configure do
         set :root, File.expand_path('..', __FILE__)
@@ -43,12 +44,26 @@ class App < Sinatra::Base
         include Sprockets::Helpers
     end
 
+    helpers Sinatra::Streaming
+
     get '/' do
         erb :index
     end
 
     get '/command' do
-        `#{params[:cmd]}`
+        cmd = params[:cmd]
+        master, slave = PTY.open
+        read, write = IO.pipe
+        pid = spawn(cmd, :in=>read, :out=>slave)
+        read.close
+        slave.close
+        stream do |out|
+            while line = master.gets do
+                out.puts(line)
+            end
+        end
     end
 
 end
+
+

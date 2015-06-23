@@ -21,10 +21,13 @@ html, body {
         .output {
         }
         .input-line {
-            input {
+            #input {
                 color: #eee;
                 background: #222;
-                border: none;
+                border: 0 solid transparent;
+                &:focus {
+                    outline: 0;
+                }
             }
             &:before {
                 content: "$"

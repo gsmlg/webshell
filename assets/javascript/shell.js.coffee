@@ -4,11 +4,30 @@ jQuery(($)->
     output = shell.find('.output')
     readline = new ReadLine('#input')
     readline.sendCommand = (cmd)->
-        output.html( output.html() + "\n$ "+ cmd )
-        $.get('/command', {cmd: cmd}).done (resp)->
+        output.html( output.html() + "\n$ "+ cmd + "\n" )
+        d = ''
+        start = 0
+        $.ajax(
+            url: '/command'
+            type: 'GET'
+            data: {cmd: cmd}
+            xhr: ->
+                xhr = new XMLHttpRequest
+                xhr.addEventListener 'progress', (evt)->
+                    console.log evt
+                    d = evt.target.responseText
+                    html = output.html()
+                    resp = d.substring start
+                    start = evt.loaded
+                    output.html( html + resp )
+                    content.scrollTop(output.height())
+                xhr
+        ).then((resp)->
+            return null if resp == d
             html = output.html()
-            output.html( html + "\n"+ resp)
+            output.html( html + resp )
             content.scrollTop(output.height())
+        )
 )
 
 class ReadLine
