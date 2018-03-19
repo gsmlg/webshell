@@ -6,4 +6,4 @@ webshell
 simple webshell
 use sinatra
 
-![](http://images.gsmlg.com/webshell.png)
+![](http://images.gsmlg.org/webshell.png)
